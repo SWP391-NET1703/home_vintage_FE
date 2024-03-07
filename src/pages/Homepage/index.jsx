@@ -103,32 +103,32 @@ const HomepagePage = () => {
             <div className="flex md:flex-col flex-row md:gap-[50px] items-center justify-between w-full">
               <Img
                 className="h-12 w-[220px]"
-                src="images/img_search.svg"
+                src="/images/img_search.svg"
                 alt="search"
               />
               <Img
                 className="h-12 w-[125px]"
-                src="images/img_companylogocompany109_gray_53.svg"
+                src="/images/img_companylogocompany109_gray_53.svg"
                 alt="companylogocomp"
               />
               <Img
                 className="h-12 w-[92px]"
-                src="images/img_companylogocompany109.svg"
+                src="/images/img_companylogocompany109.svg"
                 alt="companylogocomp_One"
               />
               <Img
                 className="h-12 w-[141px]"
-                src="images/img_companylogocompany109_gray_53_48x141.svg"
+                src="/images/img_companylogocompany109_gray_53_48x141.svg"
                 alt="companylogocomp_Two"
               />
               <Img
                 className="h-12 w-[134px]"
-                src="images/img_companylogocompany109_gray_53_48x134.svg"
+                src="/images/img_companylogocompany109_gray_53_48x134.svg"
                 alt="companylogocomp_Three"
               />
               <Img
                 className="h-12 w-[132px]"
-                src="images/img_companylogocompany109_gray_53_48x132.svg"
+                src="/images/img_companylogocompany109_gray_53_48x132.svg"
                 alt="companylogocomp_Four"
               />
             </div>
@@ -165,7 +165,7 @@ const HomepagePage = () => {
                 </div>
                 <Img
                   className="h-[301px] md:h-auto max-h-[301px] object-cover sm:w-[]"
-                  src="images/img_sammoghadamkh.png"
+                  src="/images/img_sammoghadamkh.png"
                   alt="sammoghadamkh"
                 />
               </div>
@@ -196,7 +196,7 @@ const HomepagePage = () => {
                 </div>
                 <Img
                   className="h-[244px] md:h-auto max-h-[244px] object-cover sm:w-[]"
-                  src="images/img_phildesforges.png"
+                  src="/images/img_phildesforges.png"
                   alt="phildesforges"
                 />
               </div>
@@ -253,11 +253,11 @@ const HomepagePage = () => {
                       <HomepageCardproduct
                         className="flex flex-1 flex-col gap-4 items-start justify-start w-full"
                         status="New"
-                        save="images/img_save.svg"
+                        save="/images/img_save.svg"
                       />
                       <HomepageCardproduct
                         className="flex flex-1 flex-col gap-4 items-start justify-start w-full"
-                        image="images/img_image_400x308.png"
+                        image="/images/img_image_400x308.png"
                         status="New"
                       />
                       <HomepageCardproduct
@@ -267,7 +267,7 @@ const HomepagePage = () => {
                       />
                       <HomepageCardproduct
                         className="flex flex-1 flex-col gap-4 items-start justify-start w-full"
-                        image="images/img_image_2.png"
+                        image="/images/img_image_2.png"
                         status="New"
                       />
                     </div>
@@ -284,12 +284,12 @@ const HomepagePage = () => {
                       />
                       <HomepageCardproduct
                         className="flex flex-1 flex-col gap-4 items-start justify-start w-full"
-                        image="images/img_image_5.png"
+                        image="/images/img_image_5.png"
                         status="New"
                       />
                       <HomepageCardproduct
                         className="flex flex-1 flex-col gap-4 items-start justify-start w-full"
-                        image="images/img_image_6.png"
+                        image="/images/img_image_6.png"
                         status="New"
                       />
                     </div>
@@ -350,7 +350,7 @@ const HomepagePage = () => {
             </div>
             <Img
               className="sm:flex-1 h-[535px] md:h-auto object-cover w-[535px] sm:w-full"
-              src="images/img_insideweather.png"
+              src="/images/img_insideweather.png"
               alt="insideweather"
             />
           </div>
@@ -392,7 +392,7 @@ const HomepagePage = () => {
                   <div className="flex flex-1 flex-col gap-10 items-start justify-start w-full">
                     <Img
                       className="h-[60px] w-[63px]"
-                      src="images/img_volume.svg"
+                      src="/images/img_volume.svg"
                       alt="volume"
                     />
                     <div className="flex flex-col gap-3 items-start justify-start w-[276px]">
@@ -414,7 +414,7 @@ const HomepagePage = () => {
                   <div className="flex flex-1 flex-col gap-10 items-start justify-start w-full">
                     <Img
                       className="h-[60px] w-[63px]"
-                      src="images/img_lock.svg"
+                      src="/images/img_lock.svg"
                       alt="lock"
                     />
                     <div className="flex flex-col gap-3 items-start justify-start w-[276px]">
@@ -436,7 +436,7 @@ const HomepagePage = () => {
                   <div className="flex flex-1 flex-col gap-10 items-start justify-start w-full">
                     <Img
                       className="h-[60px] w-[63px]"
-                      src="images/img_clock.svg"
+                      src="/images/img_clock.svg"
                       alt="clock"
                     />
                     <div className="flex flex-col gap-3 items-start justify-start w-[276px]">
@@ -458,7 +458,7 @@ const HomepagePage = () => {
                   <div className="flex flex-1 flex-col gap-10 items-start justify-start w-full">
                     <Img
                       className="h-[60px] w-[63px]"
-                      src="images/img_call.svg"
+                      src="/images/img_call.svg"
                       alt="call"
                     />
                     <div className="flex flex-col gap-3 items-start justify-start w-[276px]">
@@ -482,7 +482,7 @@ const HomepagePage = () => {
             </div>
             <Img
               className="flex-1 md:flex-none md:h-[640px] sm:h-auto h-full max-h-[640px] object-cover sm:w-[] md:w-[]"
-              src="images/img_rectangle16.png"
+              src="/images/img_rectangle16.png"
               alt="rectangleSixteen"
             />
           </div>
@@ -520,7 +520,7 @@ const HomepagePage = () => {
           </div>
         </div>
         <div className="flex flex-col font-rubik items-start justify-start md:px-10 sm:px-5 px-[75px] w-full">
-          
+
         </div>
         <CartSectionfooter className="bg-black-900 flex font-raleway gap-2 items-center justify-center md:px-5 px-[75px] py-[50px] w-full" />
       </div>
