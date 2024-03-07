@@ -5,11 +5,13 @@ import CartColumnframe48095972 from "components/CartColumnframe48095972";
 import CartNavbar from "components/CartNavbar";
 import CartSectionfooter from "components/CartSectionfooter";
 import HomepageCardproduct from "components/HomepageCardproduct";
-import axios from "axios";
-import { listProduct } from "Redux/Actions/ProductActions";
-import { useDispatch, useSelector } from "react-redux";
 import Loading from "components/LoadingError/Loading";
 import Message from "components/LoadingError/Error";
+import { useQuery } from "react-query";
+import { getListProduct } from "services/product/getListProduct";
+
+
+
 
 const homeOptionsList = [
   { label: "Option1", value: "option1" },
@@ -39,17 +41,7 @@ const ShopPage = () => {
     { image: "images/img_image_13.png" },
     { image: "images/img_image_7.png" },
   ];
-  const dispatch = useDispatch();
-  const productList = useSelector((state) => state.productList);
-
-  const { loading, error, products } = productList;
-  useEffect(() => {
-    dispatch(listProduct());
-  }, [dispatch]);
-  const product = products?.list_interior;
-  
-  console.log("hi",product);
-
+  const { data, isLoading, isError } = useQuery({ queryKey: ['products'], queryFn: getListProduct })
   return (
     <>
       <div className="bg-gray-50 flex flex-col font-rubik sm:gap-10 md:gap-10 gap-[100px] items-center justify-start mx-auto w-auto sm:w-full md:w-full">
@@ -60,7 +52,7 @@ const ShopPage = () => {
               <div className="h-[450px] relative w-full">
                 <Img
                   className="h-[450px] m-auto object-cover w-full"
-                  src={product?.images}
+                  src={data?.list_interior.images}
                   alt="rectangleTwentyEight"
                 />
                 <div className="absolute flex flex-col gap-[30px] h-max inset-y-[0] items-start justify-start left-[5%] my-auto w-auto">
@@ -280,15 +272,15 @@ const ShopPage = () => {
                   placeholder="Sort By"
                 />
               </div>
-              {loading ? (
-                <Loading/>
-              ) : error ? (
-                <Message variant="alert-danger">{error}</Message>
+              {isLoading ? (
+                <Loading />
+              ) : isError ? (
+                <Message variant="alert-danger">Đã có lỗi xảy ra</Message>
               ) : (
                 <>
                   <div className="flex flex-col items-center justify-start w-full">
                     <div className="gap-5 grid sm:grid-cols-1 md:grid-cols-2 grid-cols-3 justify-center min-h-[auto] w-full">
-                      {product?.map((item) => (
+                      {data?.list_interior.map((item) => (
                         // <React.Fragment key={`HomepageCardproduct${index}`}>
                         <HomepageCardproduct
                           className="flex flex-1 flex-col gap-4 items-start justify-start w-full"

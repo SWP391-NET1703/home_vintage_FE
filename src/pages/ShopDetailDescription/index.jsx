@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import {
   Button,
@@ -18,7 +18,9 @@ import CartNavbar from "components/CartNavbar";
 import CartSectionfooter from "components/CartSectionfooter";
 import HomepageCardproduct from "components/HomepageCardproduct";
 import { useDispatch } from "react-redux";
-import { listProductDetails } from "Redux/Actions/ProductActions";
+import { useQuery } from "react-query";
+import { getListProductDetail } from "services/product/getListProductDetail";
+
 
 const homeOptionsList = [
   { label: "Option1", value: "option1" },
@@ -26,7 +28,7 @@ const homeOptionsList = [
   { label: "Option3", value: "option3" },
 ];
 
-const ShopDetailDescriptionPage = ({ match }) => {
+const ShopDetailDescriptionPage = () => {
   const navigate = useNavigate();
 
   const homepageCardproductPropList = [
@@ -48,12 +50,10 @@ const ShopDetailDescriptionPage = ({ match }) => {
     window.location.href = "https://accounts.google.com/";
   }
   const [product, setProduct] = useState({});
-  const productId = match?.params?._id;
-  const dispatch = useDispatch();
-  
-  useEffect(() => {
-    dispatch(listProductDetails(productId));
-  }, [dispatch, productId]);
+  const { productId } = useParams()
+
+  const { data } = useQuery({ queryKey: ['product'], queryFn: () => getListProductDetail(productId) })
+  console.log(data)
   return (
     <>
       <div className="bg-gray-50 flex flex-col font-rubik sm:gap-10 md:gap-10 gap-[100px] items-start justify-start mx-auto w-auto sm:w-full md:w-full">
@@ -64,7 +64,7 @@ const ShopDetailDescriptionPage = ({ match }) => {
               <Img
                 className="flex-1 md:flex-none md:h-[595px] sm:h-auto h-full max-h-[595px] object-cover sm:w-[] md:w-[]"
                 src={product.img}
-                alt={product.name}
+                alt={data?.interior.interior_name}
               />
               <div className="flex flex-1 flex-col gap-[30px] items-start justify-start w-full">
                 <div className="flex flex-col gap-[33px] items-start justify-start w-full">
@@ -72,7 +72,7 @@ const ShopDetailDescriptionPage = ({ match }) => {
                     className="max-w-[621px] md:max-w-full md:text-3xl sm:text-[28px] text-[32px] text-black-900 tracking-[-0.50px]"
                     size="txtRalewayRomanBold32Black900"
                   >
-                    Complete set of sofa, pillows and bed sheets
+                    {data?.interior.interior_name}
                   </Text>
                   <div className="flex flex-row font-rubik gap-[15px] items-center justify-start w-full">
                     <Img
@@ -91,7 +91,7 @@ const ShopDetailDescriptionPage = ({ match }) => {
                     className="text-4xl sm:text-[32px] md:text-[34px] text-bluegray-900 tracking-[-0.50px] w-full"
                     size="txtRubikBold36"
                   >
-                    $ 75.00
+                    $ {data?.interior.price}
                   </Text>
                   <div className="flex flex-col font-rubik gap-5 items-start justify-start w-full">
                     <Text
@@ -348,6 +348,7 @@ const ShopDetailDescriptionPage = ({ match }) => {
         <CartSectionfooter className="bg-black-900 flex font-raleway gap-2 items-center justify-center md:px-5 px-[75px] py-[50px] w-full" />
       </div>
     </>
+
   );
 };
 
