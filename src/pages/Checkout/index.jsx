@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Button, Img, Input, Line, SelectBox, Text } from "components";
 import CartColumnframe48095972 from "components/CartColumnframe48095972";
 import CartNavbar from "components/CartNavbar";
 import CartSectionfooter from "components/CartSectionfooter";
+import { useDispatch, useSelector } from "react-redux";
+import { useMutation } from "react-query";
+import { createOrder } from "services/order/createOrder";
+import { useNavigate } from "react-router-dom";
+import { removeCart } from "store/slice/CartSlice";
 
 const homeOptionsList = [
   { label: "Option1", value: "option1" },
@@ -17,6 +22,39 @@ const unitedStatesUsOptionsList = [
 ];
 
 const CheckoutPage = () => {
+  const [address, setAddress] = useState('hn')
+  const dispatch = useDispatch()
+  const carts = useSelector(state => state.cart.carts)
+  const navigate = useNavigate()
+  const totals = carts.reduce((total, cart) => {
+    return total + (parseInt(cart.price) * cart.quantityCart)
+  }, 0)
+  const mutation = useMutation(createOrder, {
+    onSuccess(data) {
+      console.log(data)
+      dispatch(removeCart())
+      navigate('/order')
+    }
+  })
+  const handleOrder = () => {
+    const detailOrder = carts.map(cart => {
+      return {
+        interior_id: cart._id,
+        price: cart.price,
+        quantity: cart.quantityCart
+      }
+    })
+
+    const orderData = {
+      address: 'hn',
+      payment_method: "1",
+      total_payment: `${totals}.000.000`,
+      status_payment: 1,
+      detail: detailOrder
+    }
+    console.log(orderData)
+    mutation.mutate(orderData)
+  }
   return (
     <>
       <div className="bg-gray-50 flex flex-col font-rubik sm:gap-10 md:gap-10 gap-[100px] items-center justify-start mx-auto w-auto sm:w-full md:w-full">
@@ -84,7 +122,7 @@ const CheckoutPage = () => {
                           placeholder="Your phone here.."
                           className="font-rubik leading-[normal] p-0 placeholder:text-gray-500 sm:px-5 text-gray-500 text-left text-sm tracking-[-0.50px] w-full"
                           wrapClassName="border border-bluegray-100 border-solid pl-[22px] pr-[35px] py-[18px] w-full"
-                          type="number"
+                          type="text"
                         ></Input>
                       </div>
                       <div className="flex flex-1 flex-col gap-3 items-start justify-start w-full">
@@ -149,7 +187,7 @@ const CheckoutPage = () => {
                     </div>
                   </div>
                   <div className="flex flex-col gap-3 items-start justify-start w-full">
-                    <Text
+                    {/* <Text
                       className="text-black-900 text-xl tracking-[-0.50px] w-full"
                       size="txtRalewayRomanRegular20Black900"
                     >
@@ -170,7 +208,7 @@ const CheckoutPage = () => {
                       options={unitedStatesUsOptionsList}
                       isSearchable={false}
                       placeholder="United States (US)"
-                    />
+                    /> */}
                   </div>
                   <div className="flex flex-col gap-3 items-start justify-start w-full">
                     <Text
@@ -179,14 +217,7 @@ const CheckoutPage = () => {
                     >
                       Street address{" "}
                     </Text>
-                    <div className="border border-bluegray-100 border-solid flex flex-col font-rubik h-[150px] md:h-auto items-start justify-start sm:px-5 px-[22px] py-[19px] w-full">
-                      <Text
-                        className="text-gray-500 text-sm tracking-[-0.50px] w-auto"
-                        size="txtRubikRegular14"
-                      >
-                        Write your full address
-                      </Text>
-                    </div>
+                    <input type="text" className='w-full h-[60px]' onChange={() => setAddress(e.target.value)} />
                   </div>
                 </div>
                 <div className="flex flex-col gap-9 items-start justify-start w-full">
@@ -231,34 +262,31 @@ const CheckoutPage = () => {
                   </Text>
                   <div className="flex flex-col font-rubik gap-[25px] items-start justify-start w-full">
                     <div className="flex flex-col gap-[25px] items-start justify-start w-full">
-                      <div className="flex flex-row items-center justify-between w-full">
-                        <Text
-                          className="text-gray-500 text-xl tracking-[-0.50px] w-auto"
-                          size="txtRalewayRomanRegular20"
-                        >
-                          Complete set of sofa... 1x
-                        </Text>
-                        <Text
-                          className="text-black-900 text-xl tracking-[-0.50px] w-auto"
-                          size="txtPoppinsSemiBold20"
-                        >
-                          $ 75.00
-                        </Text>
-                      </div>
-                      <div className="flex flex-row items-center justify-between w-full">
-                        <Text
-                          className="text-gray-500 text-xl tracking-[-0.50px] w-auto"
-                          size="txtRalewayRomanRegular20"
-                        >
-                          Teak wood chair 1x
-                        </Text>
-                        <Text
-                          className="text-black-900 text-xl tracking-[-0.50px] w-auto"
-                          size="txtPoppinsSemiBold20"
-                        >
-                          $ 24.00
-                        </Text>
-                      </div>
+                      {carts.map((cart) => {
+                        return (
+                          <div key={cart._id} className="flex flex-row items-center justify-between w-full">
+                            <Text
+                              className="text-gray-500 text-xl tracking-[-0.50px] w-auto"
+                              size="txtRalewayRomanRegular20"
+                            >
+                              {cart.interior_name}
+                            </Text>
+                            <Text
+                              className="text-black-900 text-xl tracking-[-0.50px] w-auto"
+                              size="txtPoppinsSemiBold20"
+                            >
+                              {cart.quantityCart}
+                            </Text>
+                            <Text
+                              className="text-black-900 text-xl tracking-[-0.50px] w-auto"
+                              size="txtPoppinsSemiBold20"
+                            >
+                              ${cart.price}
+                            </Text>
+                          </div>
+                        )
+                      })}
+
                       <Line className="bg-black-900 h-px w-full" />
                     </div>
                     <div className="flex flex-col gap-[25px] items-start justify-start w-full">
@@ -273,23 +301,10 @@ const CheckoutPage = () => {
                           className="text-black-900 text-xl tracking-[-0.50px] w-auto"
                           size="txtPoppinsSemiBold20"
                         >
-                          $ 99.00
+                          ${totals}.000.000
                         </Text>
                       </div>
-                      <div className="flex flex-row items-center justify-between w-full">
-                        <Text
-                          className="text-gray-500 text-xl tracking-[-0.50px] w-auto"
-                          size="txtRalewayRomanRegular20"
-                        >
-                          Discount (30%)
-                        </Text>
-                        <Text
-                          className="text-deep_orange-A400 text-xl tracking-[-0.50px] w-auto"
-                          size="txtPoppinsSemiBold20DeeporangeA400"
-                        >
-                          - $ 29.70
-                        </Text>
-                      </div>
+
                     </div>
                     <Line className="bg-black-900 h-px w-full" />
                     <div className="flex flex-row items-center justify-between w-full">
@@ -303,10 +318,10 @@ const CheckoutPage = () => {
                         className="text-black-900 text-xl tracking-[-0.50px] w-auto"
                         size="txtPoppinsSemiBold20"
                       >
-                        $ 69.30
+                        $ {totals}.000.000
                       </Text>
                     </div>
-                    <Button className="bg-bluegray-900 cursor-pointer font-semibold leading-[normal] py-3.5 text-center text-lg text-yellow-100 tracking-[-0.50px] w-full">
+                    <Button onClick={() => handleOrder()} className="bg-bluegray-900 cursor-pointer font-semibold leading-[normal] py-3.5 text-center text-lg text-yellow-100 tracking-[-0.50px] w-full">
                       Place Order
                     </Button>
                   </div>

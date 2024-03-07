@@ -3,6 +3,7 @@ import React from "react";
 import { Img, Button, SelectBox, Text } from "components";
 import { useNavigate } from "react-router-dom";
 import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
+import { useSelector } from "react-redux";
 
 const homeOptionsList = [
   { label: "Option1", value: "option1" },
@@ -12,6 +13,7 @@ const homeOptionsList = [
 
 const CartNavbar = (props) => {
   const navigate = useNavigate();
+  const carts = useSelector(state => state.cart.carts)
 
   return (
     <>
@@ -66,14 +68,19 @@ const CartNavbar = (props) => {
               Contact
             </Button>
           </div>
-          <div>
-            <Button
-            onClick={() => navigate("")}>
-              <UserOutlined style={{ fontSize: "20px", margin: "20px" }} />
-            </Button>
-            <Button onClick={() => navigate("/cart")}>
-              <ShoppingCartOutlined style={{ fontSize: "20px" }} />
-            </Button>
+          <div className='flex items-center space-x-10 pr-10'>
+            <div>
+              <Button
+                onClick={() => navigate("")}>
+                <UserOutlined style={{ fontSize: "20px", }} />
+              </Button>
+            </div>
+            <div className='relative'>
+              <Button onClick={() => navigate("/cart")} >
+                <ShoppingCartOutlined style={{ fontSize: "20px" }} />
+              </Button>
+              <div className='absolute h-5 w-5 bg-red-500 pt-[2px] flex justify-center items-center rounded-full text-white-A700 -top-3 -right-[9px]'>{carts.length}</div>
+            </div>
           </div>
         </div>
       </header>

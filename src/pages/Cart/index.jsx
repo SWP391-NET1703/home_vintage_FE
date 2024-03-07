@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -6,6 +6,8 @@ import { Button, Img, Input, Line, List, SelectBox, Text } from "components";
 import CartColumnframe48095972 from "components/CartColumnframe48095972";
 import CartNavbar from "components/CartNavbar";
 import CartSectionfooter from "components/CartSectionfooter";
+import { useDispatch, useSelector } from "react-redux";
+import { addCart } from "store/slice/CartSlice";
 
 const homeOptionsList = [
   { label: "Option1", value: "option1" },
@@ -15,6 +17,41 @@ const homeOptionsList = [
 
 const CartPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const carts = useSelector(state => state.cart.carts)
+  const [count, setCount] = useState(0)
+  const handleAdd = (id) => {
+    console.log(id)
+    const index = carts.findIndex(product => product._id === id)
+    const productCarts = [...carts]
+    productCarts[index] = {
+      ...productCarts[index],
+      quantityCart: productCarts[index].quantityCart + 1
+    }
+    dispatch(addCart(productCarts))
+  }
+  const handleDelete = (id) => {
+    const productCarts = [...carts]
+    const newProductCarts = productCarts.filter(item => item._id !== id)
+    dispatch(addCart(newProductCarts))
+
+  }
+  const handleSubtract = (id) => {
+    const index = carts.findIndex(product => product._id === id)
+    const productCarts = [...carts]
+    productCarts[index] = {
+      ...productCarts[index],
+      quantityCart: productCarts[index].quantityCart - 1
+    }
+    if (productCarts[index].quantityCart == 0) {
+      productCarts.splice(index, 1);
+    }
+    dispatch(addCart(productCarts))
+  }
+  const totals = carts.reduce((total, cart) => {
+    return total + (parseInt(cart.price) * cart.quantityCart)
+  }, 0)
+
 
   return (
     <>
@@ -29,179 +66,142 @@ const CartPage = () => {
               >
                 Your Cart
               </Text>
-              <div className="flex md:flex-col flex-row font-rubik md:gap-10 gap-[61px] items-center justify-start w-full">
-                <List
-                  className="flex flex-1 flex-col gap-[30px] items-start w-full"
-                  orientation="vertical"
-                >
-                  <div className="flex flex-1 md:flex-col flex-row gap-[49px] items-center justify-start my-0 w-full">
-                    <div className="flex flex-1 sm:flex-col flex-row gap-5 items-center justify-start w-full">
-                      <Img
-                        className="h-[120px] md:h-auto object-cover w-[120px]"
-                        src="images/img_rectangle1480.png"
-                        alt="rectangle1480"
-                      />
-                      <div className="flex flex-col gap-4 items-start justify-start w-auto">
-                        <Text
-                          className="leading-[35.00px] max-w-[294px] md:max-w-full text-black-900 text-xl tracking-[-0.50px]"
-                          size="txtRalewayRomanBold20"
-                        >
-                          Complete set of sofa, pillows and bed sheets
-                        </Text>
-                        <Text
-                          className="text-bluegray-900 text-xl tracking-[-0.50px] w-auto"
-                          size="txtPoppinsBold20"
-                        >
-                          $ 75.00
-                        </Text>
-                      </div>
-                    </div>
-                    <div className="border border-black-900 border-solid flex flex-col items-start justify-start px-[15px] py-[5px] w-auto">
-                      <div className="flex flex-row gap-[15px] items-center justify-start w-auto">
-                        <Img
-                          className="h-6 w-6"
-                          src="images/img_google.svg"
-                          alt="google"
-                        />
-                        <Text
-                          className="text-black-900 text-lg tracking-[-0.50px] w-auto"
-                          size="txtRubikRegular18"
-                        >
-                          1
-                        </Text>
-                        <Img
-                          className="h-6 w-6"
-                          src="images/img_plus.svg"
-                          alt="plus"
-                        />
-                      </div>
-                    </div>
-                    <Text
-                      className="text-black-900 text-lg tracking-[-0.50px] w-auto"
-                      size="txtRubikSemiBold18"
+              {carts.length === 0
+                ? (
+                  <div>Giỏ hàng trống</div>
+                )
+                : (
+                  <div className="flex md:flex-col flex-row font-rubik md:gap-10 gap-[61px] items-center justify-start w-full">
+                    <List
+                      className="flex flex-1 flex-col gap-[30px] items-start w-full"
+                      orientation="vertical"
                     >
-                      $ 75.00
-                    </Text>
-                    <Img
-                      className="h-[50px] w-[50px]"
-                      src="images/img_trash.svg"
-                      alt="trash"
-                    />
-                  </div>
-                  <div className="flex flex-1 md:flex-col flex-row gap-[49px] items-center justify-start my-0 w-full">
-                    <div className="flex flex-1 sm:flex-col flex-row gap-5 items-center justify-start w-full">
-                      <Img
-                        className="h-[120px] md:h-auto object-cover w-[120px]"
-                        src="images/img_rectangle1480.png"
-                        alt="rectangle1480"
-                      />
-                      <div className="flex flex-col gap-4 items-start justify-start w-auto">
+                      {carts.map((cart) => {
+                        return (
+                          <div key={cart._id} className="flex flex-1 md:flex-col flex-row gap-[49px] items-center justify-start my-0 w-full">
+                            <div className="flex flex-1 sm:flex-col flex-row gap-5 items-center justify-start w-full">
+                              <Img
+                                className="h-[120px] md:h-auto object-cover w-[120px]"
+                                src="images/img_rectangle1480.png"
+                                alt="rectangle1480"
+                              />
+                              <div className="flex flex-col gap-4 items-start justify-start w-auto">
+                                <Text
+                                  className="leading-[35.00px] max-w-[294px] md:max-w-full text-black-900 text-xl tracking-[-0.50px]"
+                                  size="txtRalewayRomanBold20"
+                                >
+                                  {cart.interior_name}
+                                </Text>
+                                <Text
+                                  className="text-bluegray-900 text-xl tracking-[-0.50px] w-auto"
+                                  size="txtPoppinsBold20"
+                                >
+                                  $ {cart.price}
+                                </Text>
+                              </div>
+                            </div>
+                            <div className="border border-black-900 border-solid flex flex-col items-start justify-start px-[15px] py-[5px] w-auto">
+                              <div className="flex flex-row gap-[15px] items-center justify-start w-auto">
+                                <Img
+                                  onClick={() => handleSubtract(cart._id)}
+                                  className="h-6 w-6"
+                                  src="images/img_google.svg"
+                                  alt="google"
+
+                                />
+                                <Text
+                                  className="text-black-900 text-lg tracking-[-0.50px] w-auto"
+                                  size="txtRubikRegular18"
+                                >
+                                  {cart.quantityCart}
+                                </Text>
+                                <Img
+                                  onClick={() => handleAdd(cart._id)}
+                                  className="h-6 w-6"
+                                  src="images/img_plus.svg"
+                                  alt="plus"
+                                />
+                              </div>
+                            </div>
+                            <Text
+                              className="text-black-900 text-lg tracking-[-0.50px] w-auto"
+                              size="txtRubikSemiBold18"
+                            >
+                              ${parseInt(cart.price) * cart.quantityCart}.000.000
+                            </Text>
+                            <Img
+                              onClick={() => handleDelete(cart._id)}
+                              className="h-[50px] w-[50px]"
+                              src="images/img_trash.svg"
+                              alt="trash"
+                            />
+                          </div>
+                        )
+                      })}
+
+
+                    </List>
+                    <div className="bg-gray-53 flex sm:flex-1 flex-col items-start justify-start sm:px-5 px-[27px] py-[31px] w-auto sm:w-full">
+                      <div className="flex flex-col gap-[27px] items-start justify-start w-auto">
                         <Text
                           className="text-black-900 text-xl tracking-[-0.50px] w-auto"
                           size="txtRalewayRomanBold20"
                         >
-                          Teak wood chair
+                          Cart Total
                         </Text>
-                        <Text
-                          className="text-bluegray-900 text-xl tracking-[-0.50px] w-auto"
-                          size="txtPoppinsBold20"
+                        <div className="flex flex-col font-rubik gap-5 items-start justify-start w-full">
+                          <div className="flex flex-row items-center justify-between w-full">
+                            <Text
+                              className="text-gray-500 text-xl tracking-[-0.50px] w-auto"
+                              size="txtRalewayRomanRegular20"
+                            >
+                              Subtotal
+                            </Text>
+                            <Text
+                              className="text-black-900 text-xl tracking-[-0.50px] w-auto"
+                              size="txtPoppinsSemiBold20"
+                            >
+                              ${totals}.000.000
+                            </Text>
+                          </div>
+                          <div className="flex flex-row items-start justify-start w-full">
+                            <Input
+                              name="frame48096036"
+                              placeholder="Your Voucher"
+                              className="leading-[normal] p-0 placeholder:text-black-900_3f sm:pr-5 text-black-900_3f text-left text-sm tracking-[-0.50px] w-full"
+                              wrapClassName="bg-white-A700 flex-1 pl-[17px] pr-[35px] py-[13px] w-[73%]"
+                            ></Input>
+                            <Button className="bg-bluegray-900 cursor-pointer font-semibold leading-[normal] min-w-[98px] py-3.5 text-center text-sm text-yellow-100 tracking-[-0.50px]">
+                              Apply
+                            </Button>
+                          </div>
+                        </div>
+                        <Line className="bg-black-900 h-px w-full" />
+                        <div className="flex flex-row items-center justify-between w-full">
+                          <Text
+                            className="text-gray-500 text-xl tracking-[-0.50px] w-auto"
+                            size="txtRalewayRomanRegular20"
+                          >
+                            Total
+                          </Text>
+                          <Text
+                            className="text-black-900 text-xl tracking-[-0.50px] w-auto"
+                            size="txtPoppinsSemiBold20"
+                          >
+                            ${totals}.000.000
+                          </Text>
+                        </div>
+                        <Button
+                          className="common-pointer bg-bluegray-900 cursor-pointer font-rubik font-semibold leading-[normal] py-3.5 text-center text-lg text-yellow-100 tracking-[-0.50px] w-full"
+                          onClick={() => navigate("/checkout")}
                         >
-                          $ 24.00
-                        </Text>
-                      </div>
-                    </div>
-                    <div className="border border-black-900 border-solid flex flex-col items-start justify-start px-[15px] py-[5px] w-auto">
-                      <div className="flex flex-row gap-[15px] items-center justify-start w-auto">
-                        <Img
-                          className="h-6 w-6"
-                          src="images/img_google.svg"
-                          alt="google"
-                        />
-                        <Text
-                          className="text-black-900 text-lg tracking-[-0.50px] w-auto"
-                          size="txtRubikRegular18"
-                        >
-                          1
-                        </Text>
-                        <Img
-                          className="h-6 w-6"
-                          src="images/img_plus.svg"
-                          alt="plus"
-                        />
-                      </div>
-                    </div>
-                    <Text
-                      className="text-black-900 text-lg tracking-[-0.50px] w-auto"
-                      size="txtRubikSemiBold18"
-                    >
-                      $ 75.00
-                    </Text>
-                    <Img
-                      className="h-[50px] w-[50px]"
-                      src="images/img_trash.svg"
-                      alt="trash"
-                    />
-                  </div>
-                </List>
-                <div className="bg-gray-53 flex sm:flex-1 flex-col items-start justify-start sm:px-5 px-[27px] py-[31px] w-auto sm:w-full">
-                  <div className="flex flex-col gap-[27px] items-start justify-start w-auto">
-                    <Text
-                      className="text-black-900 text-xl tracking-[-0.50px] w-auto"
-                      size="txtRalewayRomanBold20"
-                    >
-                      Cart Total
-                    </Text>
-                    <div className="flex flex-col font-rubik gap-5 items-start justify-start w-full">
-                      <div className="flex flex-row items-center justify-between w-full">
-                        <Text
-                          className="text-gray-500 text-xl tracking-[-0.50px] w-auto"
-                          size="txtRalewayRomanRegular20"
-                        >
-                          Subtotal
-                        </Text>
-                        <Text
-                          className="text-black-900 text-xl tracking-[-0.50px] w-auto"
-                          size="txtPoppinsSemiBold20"
-                        >
-                          $ 99.00
-                        </Text>
-                      </div>
-                      <div className="flex flex-row items-start justify-start w-full">
-                        <Input
-                          name="frame48096036"
-                          placeholder="Your Voucher"
-                          className="leading-[normal] p-0 placeholder:text-black-900_3f sm:pr-5 text-black-900_3f text-left text-sm tracking-[-0.50px] w-full"
-                          wrapClassName="bg-white-A700 flex-1 pl-[17px] pr-[35px] py-[13px] w-[73%]"
-                        ></Input>
-                        <Button className="bg-bluegray-900 cursor-pointer font-semibold leading-[normal] min-w-[98px] py-3.5 text-center text-sm text-yellow-100 tracking-[-0.50px]">
-                          Apply
+                          Checkout Now
                         </Button>
                       </div>
                     </div>
-                    <Line className="bg-black-900 h-px w-full" />
-                    <div className="flex flex-row items-center justify-between w-full">
-                      <Text
-                        className="text-gray-500 text-xl tracking-[-0.50px] w-auto"
-                        size="txtRalewayRomanRegular20"
-                      >
-                        Total
-                      </Text>
-                      <Text
-                        className="text-black-900 text-xl tracking-[-0.50px] w-auto"
-                        size="txtPoppinsSemiBold20"
-                      >
-                        $ 99.00
-                      </Text>
-                    </div>
-                    <Button
-                      className="common-pointer bg-bluegray-900 cursor-pointer font-rubik font-semibold leading-[normal] py-3.5 text-center text-lg text-yellow-100 tracking-[-0.50px] w-full"
-                      onClick={() => navigate("/checkout")}
-                    >
-                      Checkout Now
-                    </Button>
                   </div>
-                </div>
-              </div>
+                )}
+
             </div>
           </div>
         </div>

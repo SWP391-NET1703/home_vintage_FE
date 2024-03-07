@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NotFound from "pages/NotFound";
 import { QueryClient, QueryClientProvider } from "react-query";
+import OrderPage from "pages/Order";
 const LoginPage = React.lazy(() => import("pages/Login"));
 const Aboutus = React.lazy(() => import("pages/Aboutus"));
 const Contactus = React.lazy(() => import("pages/Contactus"));
@@ -19,6 +20,7 @@ const ShopDetailDescription = React.lazy(
 const Shop = React.lazy(() => import("pages/Shop"));
 const Homepage = React.lazy(() => import("pages/Homepage"));
 const Cart = React.lazy(() => import("pages/Cart"));
+import StaffPage from './pages/Staff/index';
 
 const queryClient = new QueryClient()
 const ProjectRoutes = () => {
@@ -31,6 +33,8 @@ const ProjectRoutes = () => {
             <Route path="*" element={<NotFound />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/shop" element={<Shop />} />
+            <Route path="/order" element={<OrderPage />} />
+            <Route path="/staff" element={<StaffPage />} />
             <Route
               path="/shopdetaildescription/:productId"
               element={<ShopDetailDescription />}

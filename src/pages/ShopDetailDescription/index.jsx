@@ -17,9 +17,10 @@ import CartColumnframe48095972 from "components/CartColumnframe48095972";
 import CartNavbar from "components/CartNavbar";
 import CartSectionfooter from "components/CartSectionfooter";
 import HomepageCardproduct from "components/HomepageCardproduct";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "react-query";
 import { getListProductDetail } from "services/product/getListProductDetail";
+import { addCart } from "store/slice/CartSlice";
 
 
 const homeOptionsList = [
@@ -29,7 +30,6 @@ const homeOptionsList = [
 ];
 
 const ShopDetailDescriptionPage = () => {
-  const navigate = useNavigate();
 
   const homepageCardproductPropList = [
     { image: "images/img_image_10.png" },
@@ -49,11 +49,31 @@ const ShopDetailDescriptionPage = () => {
   function handleNavigate2() {
     window.location.href = "https://accounts.google.com/";
   }
-  const [product, setProduct] = useState({});
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
   const { productId } = useParams()
+  const carts = useSelector(state => state.cart.carts)
+
+  const handleAddToCart = (data) => {
+    console.log(data)
+    const index = carts.findIndex(item => item._id === data._id)
+    const productCarts = [...carts]
+    if (index !== -1) {
+      productCarts[index] = {
+        ...productCarts[index],
+        quantityCart: productCarts[index].quantityCart + 1,
+      }
+    }
+    else {
+      const product = { ...data, quantityCart: 1, }
+      productCarts.push(product)
+    }
+    dispatch(addCart(productCarts))
+  }
 
   const { data } = useQuery({ queryKey: ['product'], queryFn: () => getListProductDetail(productId) })
-  console.log(data)
+
+
   return (
     <>
       <div className="bg-gray-50 flex flex-col font-rubik sm:gap-10 md:gap-10 gap-[100px] items-start justify-start mx-auto w-auto sm:w-full md:w-full">
@@ -63,7 +83,7 @@ const ShopDetailDescriptionPage = () => {
             <div className="flex md:flex-col flex-row gap-[47px] items-center justify-start max-w-[1290px] mx-auto w-full">
               <Img
                 className="flex-1 md:flex-none md:h-[595px] sm:h-auto h-full max-h-[595px] object-cover sm:w-[] md:w-[]"
-                src={product.img}
+                src={data?.img}
                 alt={data?.interior.interior_name}
               />
               <div className="flex flex-1 flex-col gap-[30px] items-start justify-start w-full">
@@ -177,13 +197,14 @@ const ShopDetailDescriptionPage = () => {
                         alt="plus"
                       />
                     </div>
-                    <Text
+                    {/* <Text
                       className="common-pointer bg-black-900 flex-1 justify-center sm:pl-5 pl-[25px] pr-[13px] py-[11px] text-lg text-white-A700 tracking-[-0.50px] w-auto"
                       size="txtRubikRegular18WhiteA700"
                       onClick={() => navigate("/")}
                     >
                       Add to Cart
-                    </Text>
+                    </Text> */}
+                    <Button className='bg-red-600 px-6 py-2 text-white-A700' onClick={() => handleAddToCart(data?.interior)}>Add to cart</Button>
                     <Button className="border border-bluegray-100 border-solid flex h-[43px] items-center justify-center p-3 w-[43px]">
                       <Img src="images/img_favorite.svg" alt="favorite" />
                     </Button>

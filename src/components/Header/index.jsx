@@ -32,14 +32,14 @@ const Header = (props) => {
               className="font-rubik leading-[normal] text-black-900 text-left text-lg tracking-[-0.50px] w-auto sm:w-full"
               placeholderClassName="text-black-900"
               onClick={() => navigate("/")}
-              
+
             >
               Home
             </Button>
             <Button
               className="text-black-900 text-lg tracking-[-0.50px] w-auto"
               size="txtRubikRomanRegular18"
-              
+
             >
               Shop
             </Button>
@@ -69,7 +69,7 @@ const Header = (props) => {
             </Text>
           </div>
           <Img
-            className="h-6 sm:hidden w-[132px]"
+            className="h-6 sm:hidden w-[134px]"
             src="images/img_icon.svg"
             alt="icon"
           />
