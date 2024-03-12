@@ -2,7 +2,7 @@ import React from "react";
 
 import { Img, Button, SelectBox, Text } from "components";
 import { useNavigate } from "react-router-dom";
-import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
+// import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
 
 const homeOptionsList = [
   { label: "Option1", value: "option1" },

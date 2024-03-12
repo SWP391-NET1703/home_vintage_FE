@@ -1,175 +1,174 @@
-import React from "react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { FaFacebook, FaYoutube, FaLinkedin, FaGithub } from "react-icons/fa";
+import FooterListTitle from "./FooterListTitle";
 
-import { Button, Img, Text } from "components";
 
-const Footer = (props) => {
-  function handleNavigate3() {
-    window.location.href = "https://twitter.com/login/";
-  }
-  function handleNavigate4() {
-    window.location.href = "https://www.facebook.com/login/";
-  }
+const Footer = () => {
+  const [emailInfo, setEmailInfo] = useState("");
+  const [subscription, setSubscription] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
 
+  const emailValidation = () => {
+    return String(emailInfo)
+      .toLocaleLowerCase()
+      .match(/^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/);
+  };
+
+  const handleSubscription = () => {
+    if (emailInfo === "") {
+      setErrMsg("Please provide an Email !");
+    } else if (!emailValidation(emailInfo)) {
+      setErrMsg("Please give a valid Email!");
+    } else {
+      setSubscription(true);
+      setErrMsg("");
+      setEmailInfo("");
+    }
+  };
   return (
-    <>
-      <footer className={props.className}>
-        <div className="flex flex-col md:gap-10 gap-[149px] items-center justify-center w-full">
-          <div className="flex md:flex-col flex-row md:gap-10 items-start justify-between w-full">
-            <div className="flex flex-col gap-4 items-start justify-start w-auto">
-              <Text
-                className="md:text-3xl sm:text-[28px] text-[32px] text-gray-53 tracking-[-0.50px] w-auto"
-                size="txtRalewayRomanBold32Gray53"
+    <div className="w-full bg-[#F5F5F3] py-20">
+      <div className="max-w-container mx-auto grid grid-cols-1 md:grid-cols-2  xl:grid-cols-6 px-4 gap-10">
+        <div className="col-span-2">
+          <FooterListTitle title=" More about Home Furniture" />
+          <div className="flex flex-col gap-6">
+            <p className="text-base w-full xl:w-[80%]">
+              Ở đây chúng tôi có đầy đủ các loại nội thất từ gia đình cho đến
+              văn phòng, nếu bạn có nhu cầu hãy đến với chúng tôi có đội ngũ
+              nhân viên tư vấn cho mọi người có một không gian phù hợp và theo
+              sở thích nhất
+            </p>
+            <ul className="flex items-center gap-2">
+              <a
+                href="https://www.youtube.com/@reactjsBD"
+                target="_blank"
+                rel="noreferrer"
               >
-                Home Funrniture
-              </Text>
-              <Text
-                className="leading-[35.00px] max-w-[360px] md:max-w-full text-base text-gray-50_a3 tracking-[-0.50px]"
-                size="txtRubikRegular16Gray50a3"
+                <li className="w-7 h-7 bg-primeColor text-gray-100 hover:text-white cursor-pointer text-lg rounded-full flex justify-center items-center hover:bg-black duration-300">
+                  <FaYoutube />
+                </li>
+              </a>
+              <a
+                href="https://github.com/noorjsdivs"
+                target="_blank"
+                rel="noreferrer"
               >
-                Ở đây chúng tôi có đầy đủ các loại nội thất từ gia đình cho đến văn phòng
-              </Text>
-            </div>
-            <div className="flex flex-col gap-5 items-start justify-start w-[209px]">
-              <Text
-                className="text-gray-53 text-xl tracking-[-0.50px] w-auto"
-                size="txtRalewayRomanSemiBold20Gray53"
+                <li className="w-7 h-7 bg-primeColor text-gray-100 hover:text-white cursor-pointer text-lg rounded-full flex justify-center items-center hover:bg-black duration-300">
+                  <FaGithub />
+                </li>
+              </a>
+              <a
+                href="https://www.facebook.com/Noorlalu143/"
+                target="_blank"
+                rel="noreferrer"
               >
-                Customer
-              </Text>
-              <div className="flex flex-col gap-6 items-start justify-start w-auto">
-                <Text
-                  className="text-gray-50_a3 text-sm tracking-[-0.50px] w-auto"
-                  size="txtRubikRegular14Gray50a3"
-                >
-                  Order Status
-                </Text>
-                <Text
-                  className="text-gray-50_a3 text-sm tracking-[-0.50px] w-auto"
-                  size="txtRubikRegular14Gray50a3"
-                >
-                  Collections
-                </Text>
-                <Text
-                  className="text-gray-50_a3 text-sm tracking-[-0.50px] w-auto"
-                  size="txtRubikRegular14Gray50a3"
-                >
-                  Our Story
-                </Text>
-                <Text
-                  className="text-gray-50_a3 text-sm tracking-[-0.50px] w-auto"
-                  size="txtRubikRegular14Gray50a3"
-                >
-                  Affiliates
-                </Text>
-                <Text
-                  className="text-gray-50_a3 text-sm tracking-[-0.50px] w-auto"
-                  size="txtRubikRegular14Gray50a3"
-                >
-                  Security
-                </Text>
-              </div>
-            </div>
-            <div className="flex flex-col gap-5 items-start justify-start w-[209px]">
-              <Text
-                className="text-gray-53 text-xl tracking-[-0.50px] w-auto"
-                size="txtRalewayRomanSemiBold20Gray53"
+                <li className="w-7 h-7 bg-primeColor text-gray-100 hover:text-white cursor-pointer text-lg rounded-full flex justify-center items-center hover:bg-black duration-300">
+                  <FaFacebook />
+                </li>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/noor-mohammad-ab2245193/"
+                target="_blank"
+                rel="noreferrer"
               >
-                Information
-              </Text>
-              <div className="flex flex-col gap-6 items-start justify-start w-auto">
-                <Text
-                  className="text-gray-50_a3 text-sm tracking-[-0.50px] w-auto"
-                  size="txtRubikRegular14Gray50a3"
-                >
-                  Customer Service
-                </Text>
-                <Text
-                  className="text-gray-50_a3 text-sm tracking-[-0.50px] w-auto"
-                  size="txtRubikRegular14Gray50a3"
-                >
-                  Careers
-                </Text>
-                <Text
-                  className="text-gray-50_a3 text-sm tracking-[-0.50px] w-auto"
-                  size="txtRubikRegular14Gray50a3"
-                >
-                  FAQ
-                </Text>
-              </div>
-            </div>
-            <div className="flex flex-col gap-5 items-start justify-start w-[220px]">
-              <Text
-                className="text-gray-53 text-xl tracking-[-0.50px] w-auto"
-                size="txtRalewayRomanSemiBold20Gray53"
-              >
-                Follow Us
-              </Text>
-              <div className="flex flex-row gap-5 items-start justify-start w-auto">
-                <Button className="bg-yellow-100 flex h-10 items-center justify-center p-2 rounded-[50%] w-10">
-                  <Img
-                    className="h-6"
-                    src="images/img_camera.svg"
-                    alt="camera_One"
-                  />
-                </Button>
-                <Button
-                  className="common-pointer bg-yellow-100 flex h-10 items-center justify-center p-2 rounded-[50%] w-10"
-                  onClick={handleNavigate4}
-                >
-                  <Img
-                    className="h-6"
-                    src="images/img_facebook.svg"
-                    alt="facebook_One"
-                  />
-                </Button>
-                <Button
-                  className="common-pointer bg-yellow-100 flex h-10 items-center justify-center p-2 rounded-[50%] w-10"
-                  onClick={handleNavigate3}
-                >
-                  <Img
-                    className="h-6"
-                    src="images/img_twitter.svg"
-                    alt="twitter_One"
-                  />
-                </Button>
-                <Button className="bg-yellow-100 flex h-10 items-center justify-center p-2 rounded-[50%] w-10">
-                  <Img
-                    className="h-6"
-                    src="images/img_music.svg"
-                    alt="music_One"
-                  />
-                </Button>
-              </div>
-            </div>
-          </div>
-          <div className="flex sm:flex-col flex-row md:gap-10 items-start justify-between w-full">
-            <Text
-              className="text-base text-gray-50_a3 tracking-[-0.50px] w-auto"
-              size="txtRubikRomanRegular16"
-            >
-              © Copyright 2022. All Rights Reserved.
-            </Text>
-            <div className="flex flex-row gap-[41px] items-start justify-start w-[272px]">
-              <Text
-                className="flex-1 text-base text-gray-50_a3 tracking-[-0.50px] w-auto"
-                size="txtRubikRomanRegular16"
-              >
-                Terms of condition
-              </Text>
-              <Text
-                className="text-base text-gray-50_a3 tracking-[-0.50px] w-auto"
-                size="txtRubikRomanRegular16"
-              >
-                Privacy Policy
-              </Text>
-            </div>
+                <li className="w-7 h-7 bg-primeColor text-gray-100 hover:text-white cursor-pointer text-lg rounded-full flex justify-center items-center hover:bg-black duration-300">
+                  <FaLinkedin />
+                </li>
+              </a>
+            </ul>
           </div>
         </div>
-      </footer>
-    </>
+        <div>
+          <FooterListTitle title="Shop" />
+          <ul className="flex flex-col gap-2">
+            <li className="font-titleFont text-base text-lightText hover:text-black hover:underline decoration-[1px] decoration-gray-500 underline-offset-2 cursor-pointer duration-300">
+              Accesories
+            </li>
+            <li className="font-titleFont text-base text-lightText hover:text-black hover:underline decoration-[1px] decoration-gray-500 underline-offset-2 cursor-pointer duration-300">
+              Clothes
+            </li>
+            <li className="font-titleFont text-base text-lightText hover:text-black hover:underline decoration-[1px] decoration-gray-500 underline-offset-2 cursor-pointer duration-300">
+              Electronics
+            </li>
+            <li className="font-titleFont text-base text-lightText hover:text-black hover:underline decoration-[1px] decoration-gray-500 underline-offset-2 cursor-pointer duration-300">
+              Home appliances
+            </li>
+            <li className="font-titleFont text-base text-lightText hover:text-black hover:underline decoration-[1px] decoration-gray-500 underline-offset-2 cursor-pointer duration-300">
+              New Arrivals
+            </li>
+          </ul>
+        </div>
+        <div>
+          <FooterListTitle title="Your account" />
+          <ul className="flex flex-col gap-2">
+            <li className="font-titleFont text-base text-lightText hover:text-black hover:underline decoration-[1px] decoration-gray-500 underline-offset-2 cursor-pointer duration-300">
+              Profile
+            </li>
+            <li className="font-titleFont text-base text-lightText hover:text-black hover:underline decoration-[1px] decoration-gray-500 underline-offset-2 cursor-pointer duration-300">
+              Orders
+            </li>
+            <li className="font-titleFont text-base text-lightText hover:text-black hover:underline decoration-[1px] decoration-gray-500 underline-offset-2 cursor-pointer duration-300">
+              Addresses
+            </li>
+            <li className="font-titleFont text-base text-lightText hover:text-black hover:underline decoration-[1px] decoration-gray-500 underline-offset-2 cursor-pointer duration-300">
+              Account Details
+            </li>
+            <li className="font-titleFont text-base text-lightText hover:text-black hover:underline decoration-[1px] decoration-gray-500 underline-offset-2 cursor-pointer duration-300">
+              Payment Options
+            </li>
+          </ul>
+        </div>
+        <div className="col-span-2 flex flex-col items-center w-full px-4">
+          <FooterListTitle title="Subscribe to our newsletter." />
+          <div className="w-full">
+            <p className="text-center mb-4">
+              A at pellentesque et mattis porta enim elementum.
+            </p>
+            {subscription ? (
+              <motion.p
+                initial={{ x: 20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                className="w-full text-center text-base font-titleFont font-semibold text-green-600"
+              >
+                Subscribed Successfully !
+              </motion.p>
+            ) : (
+              <div className="w-full flex-col xl:flex-row flex justify-between items-center gap-4">
+                <div className="flex flex-col w-full">
+                  <input
+                    onChange={(e) => setEmailInfo(e.target.value)}
+                    value={emailInfo}
+                    className="w-full h-12 border-b border-gray-400 bg-transparent px-4 text-primeColor text-lg placeholder:text-base outline-none"
+                    type="text"
+                    placeholder="Insert your email ...*"
+                  />
+                  {errMsg && (
+                    <p className="text-red-600 text-sm font-semibold font-titleFont text-center animate-bounce mt-2">
+                      {errMsg}
+                    </p>
+                  )}
+                </div>
+                <button
+                  onClick={handleSubscription}
+                  className="bg-white text-lightText w-[30%] h-10 hover:bg-black hover:text-white duration-300 text-base tracking-wide"
+                >
+                  Subscribe
+                </button>
+              </div>
+            )}
+
+            {/* <Image
+              className={`w-[80%] lg:w-[60%] mx-auto ${
+                subscription ? "mt-2" : "mt-6"
+              }`}
+              imgSrc={paymentCard}
+            /> */}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
-
-Footer.defaultProps = {};
 
 export default Footer;

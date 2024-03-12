@@ -25,7 +25,7 @@ const homeOptionsList = [
   { label: "Option3", value: "option3" },
 ];
 
-const HomepagePage = () => {
+const Home = () => {
   const navigate = useNavigate();
 
   const sliderRef = React.useRef(null);
@@ -50,7 +50,7 @@ const HomepagePage = () => {
     <>
       <div className="bg-gray-50 flex flex-col font-rubik sm:gap-10 md:gap-10 gap-[100px] items-center justify-start mx-auto w-auto sm:w-full md:w-full">
         <div className="flex flex-col items-start justify-start w-full">
-          <CartNavbar className="bg-white-A700 flex items-center justify-center md:px-5 px-[75px] py-[35px] w-full" />
+          {/* <CartNavbar className="bg-white-A700 flex items-center justify-center md:px-5 px-[75px] py-[35px] w-full" /> */}
           <div className="bg-orange-50 flex flex-col items-start justify-start md:px-10 sm:px-5 px-[75px] py-20 w-full">
             <div className="flex md:flex-col flex-row md:gap-10 gap-[60px] items-center justify-start max-w-[1290px] mx-auto w-full">
               <div className="flex flex-1 flex-col gap-[30px] items-start justify-start w-full">
@@ -522,10 +522,10 @@ const HomepagePage = () => {
         <div className="flex flex-col font-rubik items-start justify-start md:px-10 sm:px-5 px-[75px] w-full">
 
         </div>
-        <CartSectionfooter className="bg-black-900 flex font-raleway gap-2 items-center justify-center md:px-5 px-[75px] py-[50px] w-full" />
+        {/* <CartSectionfooter className="bg-black-900 flex font-raleway gap-2 items-center justify-center md:px-5 px-[75px] py-[50px] w-full" /> */}
       </div>
     </>
   );
 };
 
-export default HomepagePage;
+export default Home;

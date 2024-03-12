@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import {
-  InputLogin,
-  ButtonLogin,
-  Heading,
-  ImgLogin,
-  TextLogin,
-} from "components";
+
 import CartSectionfooter from "components/CartSectionfooter";
 import CartNavbar from "components/CartNavbar";
 import { Link, useNavigate } from "react-router-dom";

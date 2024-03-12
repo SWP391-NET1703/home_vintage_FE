@@ -1,20 +1,26 @@
 import React from "react";
 
 import { Button, Img, Text } from "components";
+import { useNavigate } from "react-router-dom";
 
 const HomepageCardproduct = (props) => {
-  const {REACT_APP_IMG_HOST} = import.meta.env
-  const image = props?.images;
-  console.log("imgae",image);
-  console.log("imgae22",REACT_APP_IMG_HOST);
+  const navigate = useNavigate();
+
+  const handleProductDetails = () => {
+    navigate(`/interior/${productId}`, {
+      state: {
+        item: productItem,
+      },
+    });
+  };
   return (
     <>
-      <div className={props.className}>
-        <div className="h-[400px] relative w-full">
+      <div  className={props.className} >
+        <div className="h-[400px] relative w-full" onClick={handleProductDetails}>
           <Img
             className="absolute h-[400px] inset-[0] justify-center m-auto object-cover w-full"
             alt={props.image}
-            src = {`${REACT_APP_IMG_HOST}${props?.image}`}
+            src={props.image}
           />
           <Button className="absolute bg-bluegray-900 bottom-[4%] cursor-pointer font-rubik leading-[normal] left-[5%] py-[9px] text-center text-sm text-white-A700 tracking-[-0.50px] w-[106px]">
             {props?.category}

@@ -31,12 +31,8 @@ const homeOptionsList = [
 const ShopDetailDescriptionPage = () => {
   const navigate = useNavigate();
 
-  const homepageCardproductPropList = [
-    { image: "images/img_image_10.png" },
-    { image: "images/img_image_11.png" },
-    { image: "images/img_image_12.png" },
-    { image: "images/img_image_13.png" },
-  ];
+  const dispatch = useDispatch();
+
   const sliderRef = React.useRef(null);
   const [sliderState, setsliderState] = React.useState(0);
   const homepageCardproductPropList1 = [
@@ -51,7 +47,6 @@ const ShopDetailDescriptionPage = () => {
   }
   const [product, setProduct] = useState({});
   const { productId } = useParams()
-
   const { data } = useQuery({ queryKey: ['product'], queryFn: () => getListProductDetail(productId) })
   console.log(data)
   return (
@@ -63,7 +58,7 @@ const ShopDetailDescriptionPage = () => {
             <div className="flex md:flex-col flex-row gap-[47px] items-center justify-start max-w-[1290px] mx-auto w-full">
               <Img
                 className="flex-1 md:flex-none md:h-[595px] sm:h-auto h-full max-h-[595px] object-cover sm:w-[] md:w-[]"
-                src={product.img}
+                src={data?.interior.images}
                 alt={data?.interior.interior_name}
               />
               <div className="flex flex-1 flex-col gap-[30px] items-start justify-start w-full">
@@ -180,7 +175,7 @@ const ShopDetailDescriptionPage = () => {
                     <Text
                       className="common-pointer bg-black-900 flex-1 justify-center sm:pl-5 pl-[25px] pr-[13px] py-[11px] text-lg text-white-A700 tracking-[-0.50px] w-auto"
                       size="txtRubikRegular18WhiteA700"
-                      onClick={() => navigate("/")}
+                      onClick={() => navigate("/Cart")}
                     >
                       Add to Cart
                     </Text>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 import { Button, Img, Input, SelectBox, Text } from "components";
-import CartColumnframe48095972 from "components/CartColumnframe48095972";
 import CartNavbar from "components/CartNavbar";
 import CartSectionfooter from "components/CartSectionfooter";
 import HomepageCardproduct from "components/HomepageCardproduct";
@@ -9,39 +8,26 @@ import Loading from "components/LoadingError/Loading";
 import Message from "components/LoadingError/Error";
 import { useQuery } from "react-query";
 import { getListProduct } from "services/product/getListProduct";
+import { getListProductDetail } from "services/product/getListProductDetail"; 
 
-
-
-
-const homeOptionsList = [
-  { label: "Option1", value: "option1" },
-  { label: "Option2", value: "option2" },
-  { label: "Option3", value: "option3" },
-];
-const sortOptionsList = [
-  { label: "Option1", value: "option1" },
-  { label: "Option2", value: "option2" },
-  { label: "Option3", value: "option3" },
-];
+import { useNavigate } from "react-router-dom";
 
 const ShopPage = () => {
-  const homepageCardproductPropList = [
-    {
-      save: "images/img_save.svg",
-      name: "may khung ha",
-      status: "New",
-      price: "24",
-    },
-    { image: "images/img_image_7.png", name: "Tao laf ai", price: "25" },
-    { image: "images/img_image_8.png" },
-    { image: "images/img_image_10.png" },
-    { image: "images/img_image_11.png" },
-    { image: "images/img_image_12.png" },
-    { image: "images/img_image_9.png" },
-    { image: "images/img_image_13.png" },
-    { image: "images/img_image_7.png" },
-  ];
-  const { data, isLoading, isError } = useQuery({ queryKey: ['products'], queryFn: getListProduct })
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["products", "productDetails"],
+    queryFn: getListProduct,
+  });
+  
+  const navigate = useNavigate();
+
+  const handleProductDetails = () => {
+    navigate(`/interior/${productId}`, {
+      state: {
+        item: productItem,
+      },
+    });
+  };
+  
   return (
     <>
       <div className="bg-gray-50 flex flex-col font-rubik sm:gap-10 md:gap-10 gap-[100px] items-center justify-start mx-auto w-auto sm:w-full md:w-full">
@@ -49,10 +35,10 @@ const ShopPage = () => {
           <CartNavbar className="bg-white-A700 flex items-center justify-center md:px-5 px-[75px] py-[35px] w-full" />
           <div className="flex flex-col font-poppins items-start justify-start md:px-10 sm:px-5 px-[75px] w-full">
             <div className="flex flex-col items-start justify-start max-w-[1290px] mx-auto w-full">
-              <div className="h-[450px] relative w-full">
+              <div className="h-[450px] relative w-full" >
                 <Img
                   className="h-[450px] m-auto object-cover w-full"
-                  src={data?.list_interior.images}
+                  src="images/img_rectangle28.png"
                   alt="rectangleTwentyEight"
                 />
                 <div className="absolute flex flex-col gap-[30px] h-max inset-y-[0] items-start justify-start left-[5%] my-auto w-auto">
@@ -267,7 +253,7 @@ const ShopPage = () => {
                   }
                   isMulti={false}
                   name="sort"
-                  options={sortOptionsList}
+                  options=""
                   isSearchable={false}
                   placeholder="Sort By"
                 />
@@ -278,9 +264,10 @@ const ShopPage = () => {
                 <Message variant="alert-danger">Đã có lỗi xảy ra</Message>
               ) : (
                 <>
-                  <div className="flex flex-col items-center justify-start w-full">
-                    <div className="gap-5 grid sm:grid-cols-1 md:grid-cols-2 grid-cols-3 justify-center min-h-[auto] w-full">
-                      {data?.list_interior.map((item) => (
+                  <div className="flex flex-col items-center justify-start w-full" >
+                    <div className="gap-5 grid sm:grid-cols-1 md:grid-cols-2 grid-cols-3 justify-center min-h-[auto] w-full" >
+                      
+                      {data?.list_best_sellers_interior.map((item) => (
                         // <React.Fragment key={`HomepageCardproduct${index}`}>
                         <HomepageCardproduct
                           className="flex flex-1 flex-col gap-4 items-start justify-start w-full"
@@ -289,6 +276,7 @@ const ShopPage = () => {
                           price={item.price}
                           category={item.material}
                           image={item.images}
+                          onClick={handleProductDetails}
                         />
                         // </React.Fragment>
                       ))}

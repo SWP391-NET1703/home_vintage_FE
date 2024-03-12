@@ -2,6 +2,10 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NotFound from "pages/NotFound";
 import { QueryClient, QueryClientProvider } from "react-query";
+import Header from "components/Header";
+import Footer from "components/Footer";
+import { ToastContainer } from "react-toastify";
+import Home from "pages/Homepage";
 const LoginPage = React.lazy(() => import("pages/Login"));
 const Aboutus = React.lazy(() => import("pages/Aboutus"));
 const Contactus = React.lazy(() => import("pages/Contactus"));
@@ -21,13 +25,33 @@ const Homepage = React.lazy(() => import("pages/Homepage"));
 const Cart = React.lazy(() => import("pages/Cart"));
 
 const queryClient = new QueryClient()
+const Layout =()=>{
+  return (
+    <div>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+      <Header/>
+      <Footer/>
+    </div>
+  )
+};
 const ProjectRoutes = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <React.Suspense fallback={<>Loading...</>}>
         <Router>
           <Routes>
-            <Route path="/" element={<Homepage />} />
+            <Route path="/" element={< Home/>} />
             <Route path="*" element={<NotFound />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/shop" element={<Shop />} />
