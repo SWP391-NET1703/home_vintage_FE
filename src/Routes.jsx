@@ -25,6 +25,7 @@ const Cart = React.lazy(() => import("pages/Cart"));
 const queryClient = new QueryClient();
 const ProjectRoutes = () => {
   return (
+    
     <QueryClientProvider client={queryClient}>
       <React.Suspense fallback={<>Loading...</>}>
         <Router>
@@ -36,7 +37,7 @@ const ProjectRoutes = () => {
             <Route
               path="/shopdetaildescription/:productId"
               element={<ShopDetailDescription />}
-            />
+            />  
             <Route path="/detailreview" element={<DetailReview />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/wishlist" element={<Wishlist />} />

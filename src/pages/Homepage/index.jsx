@@ -17,7 +17,11 @@ import CartColumnframe48095972 from "components/CartColumnframe48095972";
 import CartNavbar from "components/CartNavbar";
 import CartSectionfooter from "components/CartSectionfooter";
 import HomepageCardblog from "components/HomepageCardblog";
-import HomepageCardproduct from "components/HomepageCardproduct";
+import CardProduct from "components/CardProduct";
+import { useQuery } from "react-query";
+import { getListProduct } from "services/product/getListProduct";
+import Loading from "components/LoadingError/Loading";
+import Message from "components/LoadingError/Error";
 
 const homeOptionsList = [
   { label: "Option1", value: "option1" },
@@ -31,7 +35,7 @@ const HomepagePage = () => {
   const sliderRef = React.useRef(null);
   const [sliderState, setsliderState] = React.useState(0);
   const homepageCardproductPropList = [
-    { save: "images/img_save.svg" },
+    { save: "" },
     { image: "images/img_image_7.png" },
     { image: "images/img_image_8.png" },
     { image: "images/img_image_9.png" },
@@ -45,12 +49,16 @@ const HomepagePage = () => {
     { rectangleeighteen: "images/img_rectangle18_400x416.png" },
     { rectangleeighteen: "images/img_rectangle18_1.png" },
   ];
-
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["products"],
+    queryFn: getListProduct,
+  });
   return (
     <>
       <div className="bg-gray-50 flex flex-col font-rubik sm:gap-10 md:gap-10 gap-[100px] items-center justify-start mx-auto w-auto sm:w-full md:w-full">
         <div className="flex flex-col items-start justify-start w-full">
           <CartNavbar className="bg-white-A700 flex items-center justify-center md:px-5 px-[75px] py-[35px] w-full" />
+          {/* Banner */}
           <div className="bg-orange-50 flex flex-col items-start justify-start md:px-10 sm:px-5 px-[75px] py-20 w-full">
             <div className="flex md:flex-col flex-row md:gap-10 gap-[60px] items-center justify-start max-w-[1290px] mx-auto w-full">
               <div className="flex flex-1 flex-col gap-[30px] items-start justify-start w-full">
@@ -92,48 +100,7 @@ const HomepagePage = () => {
             </div>
           </div>
         </div>
-        <div className="bg-black-900 flex flex-col items-center justify-center md:px-10 sm:px-5 px-[173px] py-[41px] w-full">
-          <div className="flex flex-col gap-[46px] items-center justify-start max-w-[1094px] mx-auto w-full">
-            <Text
-              className="text-center text-gray-53 text-xl tracking-[-0.50px] w-full"
-              size="txtRubikRegular20"
-            >
-              Various brands have used our products
-            </Text>
-            <div className="flex md:flex-col flex-row md:gap-[50px] items-center justify-between w-full">
-              <Img
-                className="h-12 w-[220px]"
-                src="/images/img_search.svg"
-                alt="search"
-              />
-              <Img
-                className="h-12 w-[125px]"
-                src="/images/img_companylogocompany109_gray_53.svg"
-                alt="companylogocomp"
-              />
-              <Img
-                className="h-12 w-[92px]"
-                src="/images/img_companylogocompany109.svg"
-                alt="companylogocomp_One"
-              />
-              <Img
-                className="h-12 w-[141px]"
-                src="/images/img_companylogocompany109_gray_53_48x141.svg"
-                alt="companylogocomp_Two"
-              />
-              <Img
-                className="h-12 w-[134px]"
-                src="/images/img_companylogocompany109_gray_53_48x134.svg"
-                alt="companylogocomp_Three"
-              />
-              <Img
-                className="h-12 w-[132px]"
-                src="/images/img_companylogocompany109_gray_53_48x132.svg"
-                alt="companylogocomp_Four"
-              />
-            </div>
-          </div>
-        </div>
+
         <div className="flex flex-col items-center justify-center md:px-10 sm:px-5 px-[75px] w-full">
           <List
             className="sm:flex-col flex-row gap-5 grid md:grid-cols-1 grid-cols-2 justify-center max-w-[1290px] mx-auto w-full"
@@ -144,13 +111,13 @@ const HomepagePage = () => {
                 <div className="flex flex-1 flex-col gap-6 items-start justify-start w-full">
                   <div className="flex flex-col gap-[31px] items-start justify-start w-full">
                     <Text
-                      className="text-gray-53 text-lg tracking-[-0.50px] w-full"
+                      className="text-white text-lg tracking-[-0.50px] w-full"
                       size="txtRubikRegular18Gray53"
                     >
                       Living Room
                     </Text>
                     <Text
-                      className="md:max-w-full max-w-xs text-4xl sm:text-[32px] md:text-[34px] text-gray-53 tracking-[-0.50px]"
+                      className="md:max-w-full max-w-xs text-4xl sm:text-[32px] md:text-[34px] text-white tracking-[-0.50px]"
                       size="txtRalewayBold36"
                     >
                       The best foam padded chair
@@ -175,13 +142,13 @@ const HomepagePage = () => {
                 <div className="flex flex-1 flex-col gap-6 items-start justify-start w-full">
                   <div className="flex flex-col gap-[31px] items-start justify-start w-full">
                     <Text
-                      className="text-gray-53 text-lg tracking-[-0.50px] w-full"
+                      className="text-white text-lg tracking-[-0.50px] w-full"
                       size="txtRubikRegular18Gray53"
                     >
                       Living Room
                     </Text>
                     <Text
-                      className="max-w-[306px] md:max-w-full text-4xl sm:text-[32px] md:text-[34px] text-gray-53 tracking-[-0.50px]"
+                      className="max-w-[306px] md:max-w-full text-4xl sm:text-[32px] md:text-[34px] text-white tracking-[-0.50px]"
                       size="txtRalewayBold36"
                     >
                       Latest model chandelier
@@ -203,126 +170,7 @@ const HomepagePage = () => {
             </div>
           </List>
         </div>
-        <div className="flex flex-col items-center justify-start md:px-10 sm:px-5 px-[75px] w-full">
-          <div className="flex flex-col gap-[46px] items-center justify-start max-w-[1290px] mx-auto w-full">
-            <div className="flex flex-col gap-[13px] items-center justify-start w-full">
-              <Text
-                className="sm:text-4xl md:text-[38px] text-[40px] text-black-900 text-center tracking-[-0.50px] w-full"
-                size="txtRalewayBold40"
-              >
-                <span className="text-black-900 font-raleway font-bold">
-                  Our{" "}
-                </span>
-                <span className="text-black-900 font-raleway font-bold">
-                  Newest
-                </span>
-                <span className="text-black-900 font-raleway font-bold">
-                  {" "}
-                  Product
-                </span>
-              </Text>
-              <Text
-                className="text-center text-gray-500 text-lg tracking-[-0.50px] w-full"
-                size="txtRubikRegular18Gray500"
-              >
-                Made of the best materials and with a design that follows the
-                times
-              </Text>
-            </div>
-            <Slider
-              autoPlay
-              autoPlayInterval={2000}
-              activeIndex={sliderState}
-              responsive={{
-                0: { items: 1 },
-                550: { items: 1 },
-                1050: { items: 1 },
-              }}
-              onSlideChanged={(e) => {
-                setsliderState(e?.item);
-              }}
-              ref={sliderRef}
-              className="w-full"
-              items={[...Array(3)].map(() => (
-                <React.Fragment key={Math.random()}>
-                  <List
-                    className="flex flex-col gap-[47px] items-center mx-2.5"
-                    orientation="vertical"
-                  >
-                    <div className="gap-[19px] grid sm:grid-cols-1 md:grid-cols-2 grid-cols-4 items-start justify-start w-full">
-                      <HomepageCardproduct
-                        className="flex flex-1 flex-col gap-4 items-start justify-start w-full"
-                        status="New"
-                        save="/images/img_save.svg"
-                      />
-                      <HomepageCardproduct
-                        className="flex flex-1 flex-col gap-4 items-start justify-start w-full"
-                        image="/images/img_image_400x308.png"
-                        status="New"
-                      />
-                      <HomepageCardproduct
-                        className="flex flex-1 flex-col gap-4 items-start justify-start w-full"
-                        image="images/img_image_1.png"
-                        status="New"
-                      />
-                      <HomepageCardproduct
-                        className="flex flex-1 flex-col gap-4 items-start justify-start w-full"
-                        image="/images/img_image_2.png"
-                        status="New"
-                      />
-                    </div>
-                    <div className="gap-[19px] grid sm:grid-cols-1 md:grid-cols-2 grid-cols-4 items-start justify-start w-full">
-                      <HomepageCardproduct
-                        className="flex flex-1 flex-col gap-4 items-start justify-start w-full"
-                        image="images/img_image_3.png"
-                        status="New"
-                      />
-                      <HomepageCardproduct
-                        className="flex flex-1 flex-col gap-4 items-start justify-start w-full"
-                        image="images/img_image_4.png"
-                        status="New"
-                      />
-                      <HomepageCardproduct
-                        className="flex flex-1 flex-col gap-4 items-start justify-start w-full"
-                        image="/images/img_image_5.png"
-                        status="New"
-                      />
-                      <HomepageCardproduct
-                        className="flex flex-1 flex-col gap-4 items-start justify-start w-full"
-                        image="/images/img_image_6.png"
-                        status="New"
-                      />
-                    </div>
-                  </List>
-                </React.Fragment>
-              ))}
-              renderDotsItem={({ isActive }) => {
-                if (isActive) {
-                  return (
-                    <div className="inline-block cursor-pointer rounded-[50%] h-[15px] bg-bluegray-900 w-[15px]" />
-                  );
-                }
-                return (
-                  <div
-                    className="inline-block cursor-pointer rounded-[50%] h-[15px] bg-gray-200 w-[15px]"
-                    role="button"
-                    tabIndex={0}
-                  />
-                );
-              }}
-            />
-            <PagerIndicator
-              className="flex gap-[15px] h-[15px] items-center justify-center max-w-[1289px] w-full"
-              count={3}
-              activeCss="inline-block cursor-pointer rounded-[50%] h-[15px] bg-bluegray-900 w-[15px]"
-              activeIndex={sliderState}
-              inactiveCss="inline-block cursor-pointer rounded-[50%] h-[15px] bg-gray-200 w-[15px]"
-              sliderRef={sliderRef}
-              selectedWrapperCss="inline-block"
-              unselectedWrapperCss="inline-block"
-            />
-          </div>
-        </div>
+        {/* Banner 2 */}
         <div className="h-[535px] md:h-[892px] md:px-5 relative w-full">
           <div className="absolute bg-yellow-100 bottom-[0] h-[440px] inset-x-[0] mx-auto w-full"></div>
           <div className="absolute flex md:flex-col flex-row md:gap-10 h-full inset-y-[0] items-center justify-between max-w-[1365px] my-auto right-[0] w-full">
@@ -350,7 +198,7 @@ const HomepagePage = () => {
             </div>
             <Img
               className="sm:flex-1 h-[535px] md:h-auto object-cover w-[535px] sm:w-full"
-              src="/images/img_insideweather.png"
+              src="/images/img_insideweather.png" //change image new
               alt="insideweather"
             />
           </div>
@@ -365,12 +213,16 @@ const HomepagePage = () => {
             </Text>
             <div className="flex flex-col font-rubik items-start justify-start w-full">
               <div className="md:gap-5 gap-[19px] grid sm:grid-cols-1 md:grid-cols-2 grid-cols-4 justify-center min-h-[auto] w-full">
-                {homepageCardproductPropList.map((props, index) => (
-                  <React.Fragment key={`HomepageCardproduct${index}`}>
-                    <HomepageCardproduct
+                {data?.list_best_sellers_interior.map((item, index) => (
+                  <React.Fragment key={`CardProduct${index}`}>
+                    <CardProduct
                       className="flex flex-1 flex-col gap-4 items-start justify-start w-full"
                       status="New"
-                      {...props}
+                      name={item.interior_name}
+                      id={item._id}
+                      price={item.price}
+                      category={item.material}
+                      image={item.images}
                     />
                   </React.Fragment>
                 ))}
@@ -378,6 +230,7 @@ const HomepagePage = () => {
             </div>
           </div>
         </div>
+        {/* Infor shipping */}
         <div className="flex flex-col font-raleway items-center justify-center md:px-10 sm:px-5 px-[75px] w-full">
           <div className="flex md:flex-col flex-row md:gap-10 gap-[85px] items-center justify-start max-w-[1290px] mx-auto w-full">
             <div className="flex flex-1 flex-col gap-[50px] h-full items-start justify-start w-full">
@@ -406,8 +259,8 @@ const HomepagePage = () => {
                         className="leading-[25.00px] max-w-[276px] md:max-w-full text-gray-500 text-sm tracking-[-0.50px]"
                         size="txtRubikRegular14"
                       >
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry Lorem Ipsum has{" "}
+                        "Swift Delivery" Feel free to adjust the wording based
+                        on your preference and context!{" "}
                       </Text>
                     </div>
                   </div>
@@ -428,8 +281,7 @@ const HomepagePage = () => {
                         className="leading-[25.00px] max-w-[276px] md:max-w-full text-gray-500 text-sm tracking-[-0.50px]"
                         size="txtRubikRegular14"
                       >
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry Lorem Ipsum has{" "}
+                        "Secure Delivery: Ensuring Your Order Arrives Safely"{" "}
                       </Text>
                     </div>
                   </div>
@@ -450,8 +302,7 @@ const HomepagePage = () => {
                         className="leading-[25.00px] max-w-[276px] md:max-w-full text-gray-500 text-sm tracking-[-0.50px]"
                         size="txtRubikRegular14"
                       >
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry Lorem Ipsum has{" "}
+                        "365-Day Return Policy: Shop with Confidence"{" "}
                       </Text>
                     </div>
                   </div>
@@ -472,8 +323,7 @@ const HomepagePage = () => {
                         className="leading-[25.00px] max-w-[276px] md:max-w-full text-gray-500 text-sm tracking-[-0.50px]"
                         size="txtRubikRegular14"
                       >
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry Lorem Ipsum has{" "}
+                        "24/7 Customer Support: Assistance Whenever You Need It"{" "}
                       </Text>
                     </div>
                   </div>
@@ -487,42 +337,9 @@ const HomepagePage = () => {
             />
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center md:px-10 sm:px-5 px-[75px] w-full">
-          <div className="flex flex-col gap-[50px] items-center justify-start max-w-[1290px] mx-auto w-full">
-            <div className="flex flex-col gap-[13px] items-center justify-start w-full">
-              <Text
-                className="sm:text-4xl md:text-[38px] text-[40px] text-black-900 text-center tracking-[-0.50px] w-full"
-                size="txtRalewaySemiBold40"
-              >
-                Read Our Latest Blog
-              </Text>
-              <Text
-                className="text-center text-gray-500 text-lg tracking-[-0.50px] w-full"
-                size="txtRubikRegular18Gray500"
-              >
-                We write various things related to furniture, from tips and what
-                things I need to pay attention to when choosing furniture
-              </Text>
-            </div>
-            <List
-              className="sm:flex-col flex-row gap-5 grid sm:grid-cols-1 md:grid-cols-2 grid-cols-3 justify-start w-full"
-              orientation="horizontal"
-            >
-              {homepageCardblogPropList.map((props, index) => (
-                <React.Fragment key={`HomepageCardblog${index}`}>
-                  <HomepageCardblog
-                    className="flex flex-1 flex-col gap-2 items-start justify-start w-full"
-                    {...props}
-                  />
-                </React.Fragment>
-              ))}
-            </List>
-          </div>
-        </div>
-        <div className="flex flex-col font-rubik items-start justify-start md:px-10 sm:px-5 px-[75px] w-full">
-
-        </div>
-        <CartSectionfooter className="bg-black-900 flex font-raleway gap-2 items-center justify-center md:px-5 px-[75px] py-[50px] w-full" />
+        {/*Footer  */}
+        <div className="flex flex-col font-rubik items-start justify-start md:px-10 sm:px-5 px-[75px] w-full"></div>
+        <CartSectionfooter className="bg-black-2 text-white flex font-raleway gap-2 items-center justify-center md:px-5 px-[75px] py-[50px] w-full" />
       </div>
     </>
   );

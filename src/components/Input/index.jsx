@@ -22,7 +22,7 @@ const Input = React.forwardRef(
       color = "",
       ...restProps
     },
-    ref,
+    ref
   ) => {
     const handleChange = (e) => {
       if (onChange) onChange(e?.target?.value);
@@ -52,7 +52,7 @@ const Input = React.forwardRef(
         {!!errors && <ErrorMessage errors={errors} />}
       </>
     );
-  },
+  }
 );
 
 Input.propTypes = {

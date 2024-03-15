@@ -2,6 +2,8 @@ import CardDataStats from "components/CardDataStats";
 import ChartTwo from "components/ChartTwo";
 import DefaultLayout from "layout/DefaultLayout";
 import React from "react";
+import { get } from "react-hook-form";
+import { getUser } from "services/user/getUser";
 
 export default function Adminpage() {
   return (
