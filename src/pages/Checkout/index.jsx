@@ -47,15 +47,13 @@ const CheckoutPage = () => {
     total_payment: totalAmt,
     status_payment: "1",
     address: "HCM",
-    detail: [
-      products?.map((item) => {
-        return {
-          interior_id: item._id,
-          price: item.price,
-          quantity: item.quantity,
-        };
-      }),
-    ],
+    detail: products?.map((item) => {
+      return {
+        interior_id: item._id,
+        price: item.price,
+        quantity: item.quantity,
+      };
+    }),
   };
   const {
     register,
@@ -74,10 +72,10 @@ const CheckoutPage = () => {
   const dataForm = watch();
   // console.log("dataForm", dataForm);
   const onSubmit = (formData) => {
-    const data = { ...formData, total_payment: totalAmt };
-    console.log(user.access_token);
-    createOrder(user.access_token);
-    console.log("data", data);
+    const data = { ...formData, total_payment: totalAmt, user_id: me._id };
+    // console.log(user.access_token);
+    createOrder(data);
+    // console.log("data", data);
     // dispatch(newOrder(data));
   };
 
