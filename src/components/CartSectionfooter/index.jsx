@@ -101,26 +101,26 @@ const CartSectionfooter = (props) => {
                 <Button className="bg-yellow-100 flex h-10 items-center justify-center p-2 rounded-[50%] w-10">
                   <Img
                     className="h-6"
-                    src="images/img_camera.svg"
+                    src="../images/img_camera.svg"
                     alt="camera"
                   />
                 </Button>
                 <Button className="bg-yellow-100 flex h-10 items-center justify-center p-2 rounded-[50%] w-10">
                   <Img
                     className="h-6"
-                    src="images/img_facebook.svg"
+                    src="../images/img_facebook.svg"
                     alt="facebook"
                   />
                 </Button>
                 <Button className="bg-yellow-100 flex h-10 items-center justify-center p-2 rounded-[50%] w-10">
                   <Img
                     className="h-6"
-                    src="images/img_twitter.svg"
+                    src="../images/img_twitter.svg"
                     alt="twitter"
                   />
                 </Button>
                 <Button className="bg-yellow-100 flex h-10 items-center justify-center p-2 rounded-[50%] w-10">
-                  <Img className="h-6" src="images/img_music.svg" alt="music" />
+                  <Img className="h-6" src="../images/img_music.svg" alt="music" />
                 </Button>
               </div>
             </div>

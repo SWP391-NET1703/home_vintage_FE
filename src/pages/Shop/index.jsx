@@ -4,44 +4,26 @@ import { Button, Img, Input, SelectBox, Text } from "components";
 import CartColumnframe48095972 from "components/CartColumnframe48095972";
 import CartNavbar from "components/CartNavbar";
 import CartSectionfooter from "components/CartSectionfooter";
-import HomepageCardproduct from "components/HomepageCardproduct";
 import Loading from "components/LoadingError/Loading";
 import Message from "components/LoadingError/Error";
 import { useQuery } from "react-query";
 import { getListProduct } from "services/product/getListProduct";
+import CardProduct from "components/CardProduct";
 
 
-
-
-const homeOptionsList = [
-  { label: "Option1", value: "option1" },
-  { label: "Option2", value: "option2" },
-  { label: "Option3", value: "option3" },
-];
 const sortOptionsList = [
-  { label: "Option1", value: "option1" },
-  { label: "Option2", value: "option2" },
-  { label: "Option3", value: "option3" },
+  { label: "Bàn", value: "Bàn" },
+  { label: "Ghế", value: "Ghế" },
+  { label: "Giường", value: "Giường" },
 ];
 
 const ShopPage = () => {
-  const homepageCardproductPropList = [
-    {
-      save: "images/img_save.svg",
-      name: "may khung ha",
-      status: "New",
-      price: "24",
-    },
-    { image: "images/img_image_7.png", name: "Tao laf ai", price: "25" },
-    { image: "images/img_image_8.png" },
-    { image: "images/img_image_10.png" },
-    { image: "images/img_image_11.png" },
-    { image: "images/img_image_12.png" },
-    { image: "images/img_image_9.png" },
-    { image: "images/img_image_13.png" },
-    { image: "images/img_image_7.png" },
-  ];
-  const { data, isLoading, isError } = useQuery({ queryKey: ['products'], queryFn: getListProduct })
+ 
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["products"],
+    queryFn: getListProduct,
+  });
+  
   return (
     <>
       <div className="bg-gray-50 flex flex-col font-rubik sm:gap-10 md:gap-10 gap-[100px] items-center justify-start mx-auto w-auto sm:w-full md:w-full">
@@ -52,7 +34,7 @@ const ShopPage = () => {
               <div className="h-[450px] relative w-full">
                 <Img
                   className="h-[450px] m-auto object-cover w-full"
-                  src={data?.list_interior.images}
+                  src="images/img_rectangle28.png"
                   alt="rectangleTwentyEight"
                 />
                 <div className="absolute flex flex-col gap-[30px] h-max inset-y-[0] items-start justify-start left-[5%] my-auto w-auto">
@@ -64,7 +46,7 @@ const ShopPage = () => {
                       Best Room Decor Items
                     </Text>
                     <Text
-                      className="leading-[60.00px] max-w-[465px] md:max-w-full text-4xl sm:text-[32px] md:text-[34px] text-white-A700 tracking-[-0.50px]"
+                      className="leading-[60.00px] max-w-[465px] md:max-w-full text-4xl sm:text-[32px] md:text-[34px] text-white tracking-[-0.50px]"
                       size="txtRalewayRomanBold36"
                     >
                       Our goods have the best quality and materials in the world
@@ -238,6 +220,7 @@ const ShopPage = () => {
                 </div>
               </div>
             </div>
+            {/* Search and Filter */}
             <div className="flex flex-1 flex-col font-rubik gap-[50px] items-center justify-start w-full">
               <div className="flex sm:flex-col flex-row sm:gap-10 items-center justify-between w-full">
                 <div className="flex sm:flex-1 flex-col font-rubik items-start justify-start w-[407px] sm:w-full">
@@ -280,9 +263,9 @@ const ShopPage = () => {
                 <>
                   <div className="flex flex-col items-center justify-start w-full">
                     <div className="gap-5 grid sm:grid-cols-1 md:grid-cols-2 grid-cols-3 justify-center min-h-[auto] w-full">
-                      {data?.list_interior.map((item) => (
+                      {data?.list_best_sellers_interior.map((item) => (
                         // <React.Fragment key={`HomepageCardproduct${index}`}>
-                        <HomepageCardproduct
+                        <CardProduct
                           className="flex flex-1 flex-col gap-4 items-start justify-start w-full"
                           name={item.interior_name}
                           id={item._id}
@@ -296,7 +279,7 @@ const ShopPage = () => {
                   </div>
                 </>
               )}
-
+              {/* phan trang */}
               <div className="flex flex-row gap-2.5 items-center justify-center max-w-[962px] w-full">
                 <Img
                   className="h-[15px] w-[15px]"
@@ -327,7 +310,7 @@ const ShopPage = () => {
         <div className="flex flex-col font-rubik items-start justify-start md:px-10 sm:px-5 px-[75px] w-full">
           {/* <CartColumnframe48095972 className="bg-gradient  flex flex-col gap-2 items-start justify-start max-w-[1290px] mx-auto pl-[59px] md:px-5 py-[46px] w-full" /> */}
         </div>
-        <CartSectionfooter className="bg-black-900 flex font-raleway gap-2 items-center justify-center md:px-5 px-[75px] py-[50px] w-full" />
+        <CartSectionfooter className="bg-black-2 text-white flex font-raleway gap-2 items-center justify-center md:px-5 px-[75px] py-[50px] w-full" />
       </div>
     </>
   );

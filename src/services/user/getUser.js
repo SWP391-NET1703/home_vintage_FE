@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const getOrders = async (access_token) => {
+export const getUser = async (access_token) => {
   try {
     const response = await axios.get(
-      "https://home-vintage-backend.onrender.com/orders",
+      "https://home-vintage-backend.onrender.com/users/me",
       {
         headers: {
           Authorization: "Bearer " + access_token,
